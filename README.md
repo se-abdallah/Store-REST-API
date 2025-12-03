@@ -1,4 +1,4 @@
-E-Commerce Store API `https://github.com/se-abdallah/Store-REST-API`
+E-Commerce Store API 
 ====================
 
 A modular **.NET 8 Web API** implementing a simple E-Commerce backend. This project demonstrates a clean, layered architecture with a focus on separation of concerns and testability.
@@ -66,38 +66,52 @@ E-Commerce Store
 <br>
 
 
-🚀 How to Run the API
+
+
+🚀 How to Clone and Run the API
 ---------------------
 
 Follow these steps to get the project running locally.
 
-### 1\. Build the Project
+### 1\. Clone The Repository
+
+```
+git clone https://github.com/se-abdallah/Store-REST-API.git
+```
+
+### 2\. Open The Solution
+
+```
+cd Store-REST-API
+
+code .
+```
+### 3\. Build the Project
 
 Restore dependencies and build the solution:
 
 ```
 dotnet restore
-dotnet build Store.sln
 
+dotnet build Store.sln
 ```
 
-### 2\. Database Setup
+### 4\. Database Setup
 
 Apply migrations and seed the database with initial data:
 
 ```
 cd src/Store.API
-dotnet ef database update
 
+dotnet ef database update
 ```
 
-### 3\. Run the Application
+### 5\. Run the Application
 
 Start the API:
 
 ```
 dotnet run
-
 ```
 
 > **Note:** On the first run, the app will automatically apply migrations and seed the database with 20+ products and stock.
