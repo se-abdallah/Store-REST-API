@@ -1,0 +1,678 @@
+{
+ "info": {
+  "_postman_id": "c4a4c5f5-0a10-4e0c-9a5f-aaaa11112222",
+  "name": "E-Commerce Store API Product",
+  "description": "Collection for testing Auth and Product endpoints (public + admin) for the E-Commerce Store assignment.",
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ },
+ "item": [
+  {
+   "name": "Auth",
+   "item": [
+    {
+     "name": "Login - Admin",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"identifier\": \"admin@store.com\",\n  \"password\": \"Admin#123\"\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/account/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "account",
+        "login"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test(\"Status code is 200\", function () {",
+         "    pm.response.to.have.status(200);",
+         "});",
+         "",
+         "var jsonData = pm.response.json();",
+         "if (jsonData && jsonData.token) {",
+         "    pm.environment.set(\"adminToken\", jsonData.token);",
+         "}",
+         "if (jsonData && jsonData.email) {",
+         "    pm.environment.set(\"adminEmail\", jsonData.email);",
+         "}",
+         "if (!pm.environment.get(\"defaultLanguage\")) {",
+         "    pm.environment.set(\"defaultLanguage\", \"en\");",
+         "}"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Login - Visitor",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"identifier\": \"visitor@store.com\",\n  \"password\": \"Visitor#123\"\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/account/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "account",
+        "login"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test(\"Status code is 200\", function () {",
+         "    pm.response.to.have.status(200);",
+         "});",
+         "",
+         "var jsonData = pm.response.json();",
+         "if (jsonData && jsonData.token) {",
+         "    pm.environment.set(\"visitorToken\", jsonData.token);",
+         "}",
+         "if (jsonData && jsonData.email) {",
+         "    pm.environment.set(\"visitorEmail\", jsonData.email);",
+         "}"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Products - Public",
+   "item": [
+    {
+     "name": "Get Products - Default",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products?language={{defaultLanguage}}",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "{{defaultLanguage}}"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Products - Page 2",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products?language={{defaultLanguage}}&pageNumber=2&pageSize=2",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "{{defaultLanguage}}"
+        },
+        {
+         "key": "pageNumber",
+         "value": "2"
+        },
+        {
+         "key": "pageSize",
+         "value": "2"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Products - In Stock Only",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products?language={{defaultLanguage}}&inStockOnly=true",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "{{defaultLanguage}}"
+        },
+        {
+         "key": "inStockOnly",
+         "value": "true"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Products - Search 'Laptop'(Exist)",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products?language={{defaultLanguage}}&search=Laptop",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "{{defaultLanguage}}"
+        },
+        {
+         "key": "search",
+         "value": "Laptop"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Products - Search 'Charger'(Not Exist)",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products?language={{defaultLanguage}}&search=Charger",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "{{defaultLanguage}}"
+        },
+        {
+         "key": "search",
+         "value": "Charger"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Product By Id - EN",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/1?language=en",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "1"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "en"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Product By Id - AR",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/1?language=ar",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "1"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "ar"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Product By Id - Not Found",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/99999?language=en",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "99999"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "en"
+        }
+       ]
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "name": "Products - Admin",
+   "item": [
+    {
+     "name": "Admin - Get Products",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Get Product By Id",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin/1",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin",
+        "1"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Create Product (Valid)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"price\": 100.0,\n  \"stockQuantity\": 10,\n  \"translations\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Gaming Mouse\",\n      \"description\": \"High DPI gaming mouse.\"\n    },\n    {\n      \"language\": \"ar\",\n      \"name\": \"فأرة ألعاب\",\n      \"description\": \"فأرة ألعاب بدقة عالية.\"\n    }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Create Product (Missing Translations)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"price\": 50.0,\n  \"stockQuantity\": 5,\n  \"translations\": []\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Create Product (Duplicate Language)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"price\": 60.0,\n  \"stockQuantity\": 3,\n  \"translations\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Item A\",\n      \"description\": \"First.\"\n    },\n    {\n      \"language\": \"EN\",\n      \"name\": \"Item A Duplicate\",\n      \"description\": \"Duplicate language test.\"\n    }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Update Product (Id = 1)",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"price\": 120.0,\n  \"stockQuantity\": 8,\n  \"translations\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Gaming Mouse Pro\",\n      \"description\": \"Upgraded gaming mouse.\"\n    },\n    {\n      \"language\": \"ar\",\n      \"name\": \"فأرة ألعاب برو\",\n      \"description\": \"فأرة ألعاب مطورة.\"\n    }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin/1",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin",
+        "1"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Update Product (Not Found)",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "name": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"price\": 200.0,\n  \"stockQuantity\": 1,\n  \"translations\": [\n    {\n      \"language\": \"en\",\n      \"name\": \"Non-existent Product\",\n      \"description\": \"Should return 404.\"\n    }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin/99999",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin",
+        "99999"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Delete Product (Id = 1)",
+     "request": {
+      "method": "DELETE",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin/1",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin",
+        "1"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Delete Product (Not Found)",
+     "request": {
+      "method": "DELETE",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin/99999",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin",
+        "99999"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin - Get Products (Visitor Token - Should be 403)",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "name": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/products/admin",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "products",
+        "admin"
+       ]
+      }
+     },
+     "response": []
+    }
+   ]
+  }
+ ],
+ "variable": [
+  {
+   "key": "baseUrl",
+   "value": "https://localhost:5001"
+  },
+  {
+   "key": "adminToken",
+   "value": ""
+  },
+  {
+   "key": "visitorToken",
+   "value": ""
+  },
+  {
+   "key": "defaultLanguage",
+   "value": "en"
+  }
+ ]
+}

@@ -1,0 +1,342 @@
+[
+ {
+  "price": 10.00,
+  "stockQuantity": 100,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Notebook",
+    "description": "A simple lined notebook."
+   },
+   {
+    "language": "ar",
+    "name": "دفتر ملاحظات",
+    "description": "دفتر بسيط يحتوي على صفحات مسطرة."
+   }
+  ]
+ },
+ {
+  "price": 25.50,
+  "stockQuantity": 50,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse."
+   },
+   {
+    "language": "ar",
+    "name": "فأرة لاسلكية",
+    "description": "فأرة مريحة لاسلكية."
+   }
+  ]
+ },
+ {
+  "price": 5.75,
+  "stockQuantity": 200,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Pen",
+    "description": "Blue ink pen."
+   },
+   {
+    "language": "ar",
+    "name": "قلم",
+    "description": "قلم حبر أزرق."
+   }
+  ]
+ },
+ {
+  "price": 79.99,
+  "stockQuantity": 30,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Mechanical Keyboard",
+    "description": "Backlit mechanical keyboard with blue switches."
+   },
+   {
+    "language": "ar",
+    "name": "لوحة مفاتيح ميكانيكية",
+    "description": "لوحة مفاتيح ميكانيكية بإضاءة خلفية ومفاتيح زرقاء."
+   }
+  ]
+ },
+ {
+  "price": 9.99,
+  "stockQuantity": 150,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "USB-C Cable",
+    "description": "1 meter USB-C charging cable."
+   },
+   {
+    "language": "ar",
+    "name": "كابل USB-C",
+    "description": "كابل شحن USB-C بطول متر واحد."
+   }
+  ]
+ },
+ {
+  "price": 29.99,
+  "stockQuantity": 40,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Laptop Stand",
+    "description": "Adjustable aluminum laptop stand."
+   },
+   {
+    "language": "ar",
+    "name": "حامل لابتوب",
+    "description": "حامل لابتوب قابل للتعديل من الألمنيوم."
+   }
+  ]
+ },
+ {
+  "price": 59.99,
+  "stockQuantity": 35,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Headphones",
+    "description": "Over-ear headphones with noise isolation."
+   },
+   {
+    "language": "ar",
+    "name": "سماعات رأس",
+    "description": "سماعات رأس تغطي الأذن مع عزل للضوضاء."
+   }
+  ]
+ },
+ {
+  "price": 149.99,
+  "stockQuantity": 20,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "24\" Monitor",
+    "description": "24-inch full HD monitor."
+   },
+   {
+    "language": "ar",
+    "name": "شاشة 24 بوصة",
+    "description": "شاشة عالية الدقة بحجم 24 بوصة."
+   }
+  ]
+ },
+ {
+  "price": 89.99,
+  "stockQuantity": 25,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "External SSD 512GB",
+    "description": "Portable 512GB SSD drive."
+   },
+   {
+    "language": "ar",
+    "name": "قرص SSD خارجي 512 جيجابايت",
+    "description": "قرص SSD خارجي محمول بسعة 512 جيجابايت."
+   }
+  ]
+ },
+ {
+  "price": 39.99,
+  "stockQuantity": 60,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Laptop Backpack",
+    "description": "Water-resistant backpack for 15.6\" laptops."
+   },
+   {
+    "language": "ar",
+    "name": "حقيبة ظهر للابتوب",
+    "description": "حقيبة ظهر مقاومة للماء تناسب أجهزة لابتوب حتى 15.6 بوصة."
+   }
+  ]
+ },
+ {
+  "price": 7.50,
+  "stockQuantity": 120,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Coffee Mug",
+    "description": "Ceramic coffee mug 350ml."
+   },
+   {
+    "language": "ar",
+    "name": "كوب قهوة",
+    "description": "كوب قهوة خزفي بسعة 350 مل."
+   }
+  ]
+ },
+ {
+  "price": 19.99,
+  "stockQuantity": 70,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Desk Lamp",
+    "description": "LED desk lamp with adjustable arm."
+   },
+   {
+    "language": "ar",
+    "name": "مصباح مكتب",
+    "description": "مصباح مكتب LED بذراع قابل للتعديل."
+   }
+  ]
+ },
+ {
+  "price": 12.99,
+  "stockQuantity": 90,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Phone Holder",
+    "description": "Adjustable phone holder for desk."
+   },
+   {
+    "language": "ar",
+    "name": "حامل هاتف",
+    "description": "حامل هاتف مكتبي قابل للتعديل."
+   }
+  ]
+ },
+ {
+  "price": 34.99,
+  "stockQuantity": 45,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Power Bank 20,000mAh",
+    "description": "High-capacity portable power bank."
+   },
+   {
+    "language": "ar",
+    "name": "باور بانك 20000 مللي أمبير",
+    "description": "شاحن متنقل عالي السعة."
+   }
+  ]
+ },
+ {
+  "price": 54.99,
+  "stockQuantity": 30,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Wi-Fi Router",
+    "description": "Dual-band wireless router."
+   },
+   {
+    "language": "ar",
+    "name": "راوتر واي فاي",
+    "description": "راوتر لاسلكي ثنائي النطاق."
+   }
+  ]
+ },
+ {
+  "price": 8.99,
+  "stockQuantity": 130,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "HDMI Cable",
+    "description": "2 meter HDMI 2.0 cable."
+   },
+   {
+    "language": "ar",
+    "name": "كابل HDMI",
+    "description": "كابل HDMI بطول 2 متر بمعيار 2.0."
+   }
+  ]
+ },
+ {
+  "price": 199.99,
+  "stockQuantity": 15,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Office Chair",
+    "description": "Ergonomic office chair with lumbar support."
+   },
+   {
+    "language": "ar",
+    "name": "كرسي مكتب",
+    "description": "كرسي مكتب مريح مع دعم أسفل الظهر."
+   }
+  ]
+ },
+ {
+  "price": 49.99,
+  "stockQuantity": 25,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Whiteboard",
+    "description": "Magnetic whiteboard 90x60 cm."
+   },
+   {
+    "language": "ar",
+    "name": "سبورة بيضاء",
+    "description": "سبورة بيضاء مغناطيسية مقاس 90×60 سم."
+   }
+  ]
+ },
+ {
+  "price": 4.99,
+  "stockQuantity": 300,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Sticky Notes Pack",
+    "description": "Pack of colorful sticky notes."
+   },
+   {
+    "language": "ar",
+    "name": "مذكرات لاصقة",
+    "description": "حزمة من المذكرات اللاصقة الملونة."
+   }
+  ]
+ },
+ {
+  "price": 14.99,
+  "stockQuantity": 80,
+  "isDeleted": false,
+  "translations": [
+   {
+    "language": "en",
+    "name": "Water Bottle",
+    "description": "Stainless steel water bottle 750ml."
+   },
+   {
+    "language": "ar",
+    "name": "قارورة ماء",
+    "description": "قارورة ماء من الستانلس ستيل بسعة 750 مل."
+   }
+  ]
+ }
+]

@@ -1,0 +1,742 @@
+{
+ "info": {
+  "_postman_id": "e0b1b6a6-0000-4000-9000-000000000001",
+  "name": "E-Commerce Store API Invoice",
+  "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+ },
+ "item": [
+  {
+   "name": "Auth",
+   "item": [
+    {
+     "name": "Login - Admin",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"identifier\": \"admin@store.com\",\n  \"password\": \"Admin#123\"\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/account/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "account",
+        "login"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 200', function () {",
+         "  pm.response.to.have.status(200);",
+         "});",
+         "",
+         "try {",
+         "  var data = pm.response.json();",
+         "  if (data && data.token) {",
+         "    pm.environment.set('adminToken', data.token);",
+         "  }",
+         "} catch (e) {",
+         "  console.warn('Unable to parse token from admin login response');",
+         "}"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Login - Visitor",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"identifier\": \"visitor@store.com\",\n  \"password\": \"Visitor#123\"\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/account/login",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "account",
+        "login"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 200', function () {",
+         "  pm.response.to.have.status(200);",
+         "});",
+         "",
+         "try {",
+         "  var data = pm.response.json();",
+         "  if (data && data.token) {",
+         "    pm.environment.set('visitorToken', data.token);",
+         "  }",
+         "} catch (e) {",
+         "  console.warn('Unable to parse token from visitor login response');",
+         "}"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Invoices - User (Visitor/Admin as user)",
+   "item": [
+    {
+     "name": "Create Invoice - Success (Visitor, language=en)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": {{productId1}}, \"quantity\": 2 },\n    { \"productId\": {{productId2}}, \"quantity\": 1 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices?language=en",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "en"
+        }
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 200', function () {",
+         "  pm.response.to.have.status(200);",
+         "});",
+         "",
+         "try {",
+         "  var data = pm.response.json();",
+         "  if (data && data.id) {",
+         "    pm.environment.set('lastVisitorInvoiceId', data.id);",
+         "  }",
+         "} catch(e) {",
+         "  console.warn('Unable to capture invoice id from response');",
+         "}"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Create Invoice - Success (Visitor, language=ar)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": {{productId1}}, \"quantity\": 1 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices?language=ar",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ],
+       "query": [
+        {
+         "key": "language",
+         "value": "ar"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Create Invoice - Invalid (no items)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": []\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 400 for empty items', function () {",
+         "  pm.response.to.have.status(400);",
+         "});"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Create Invoice - Invalid (quantity 0)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": {{productId1}}, \"quantity\": 0 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Create Invoice - Non-existing product",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": 9999, \"quantity\": 1 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Create Invoice - Not enough stock",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       },
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": {{productId1}}, \"quantity\": 100000 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Create Invoice - Unauthorized (no token)",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json"
+       }
+      ],
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"items\": [\n    { \"productId\": {{productId1}}, \"quantity\": 1 }\n  ]\n}"
+      },
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 401 Unauthorized when no token', function () {",
+         "  pm.expect(pm.response.code).to.be.oneOf([401, 403]);",
+         "});"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Get My Invoices - Default paging",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices?PageNumber=1&PageSize=10",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ],
+       "query": [
+        {
+         "key": "PageNumber",
+         "value": "1"
+        },
+        {
+         "key": "PageSize",
+         "value": "10"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get My Invoices - Filter & OrderBy amount_desc",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices?PageNumber=1&PageSize=5&OrderBy=amount_desc",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices"
+       ],
+       "query": [
+        {
+         "key": "PageNumber",
+         "value": "1"
+        },
+        {
+         "key": "PageSize",
+         "value": "5"
+        },
+        {
+         "key": "OrderBy",
+         "value": "amount_desc"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get My Invoice By Id - Existing",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/{{lastVisitorInvoiceId}}",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "{{lastVisitorInvoiceId}}"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get My Invoice By Id - Not found / not mine",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/9999",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "9999"
+       ]
+      }
+     },
+     "response": []
+    }
+   ]
+  },
+  {
+   "name": "Invoices - Admin",
+   "item": [
+    {
+     "name": "Get All Invoices (Admin)",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/admin?PageNumber=1&PageSize=10",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "admin"
+       ],
+       "query": [
+        {
+         "key": "PageNumber",
+         "value": "1"
+        },
+        {
+         "key": "PageSize",
+         "value": "10"
+        }
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Status code is 200 (admin list invoices)', function () {",
+         "  pm.response.to.have.status(200);",
+         "});"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    },
+    {
+     "name": "Get All Invoices (Admin) - Filter & OrderBy date_asc",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/admin?PageNumber=1&PageSize=5&OrderBy=date_asc",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "admin"
+       ],
+       "query": [
+        {
+         "key": "PageNumber",
+         "value": "1"
+        },
+        {
+         "key": "PageSize",
+         "value": "5"
+        },
+        {
+         "key": "OrderBy",
+         "value": "date_asc"
+        }
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Invoice By Id (Admin)",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/admin/{{lastVisitorInvoiceId}}",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "admin",
+        "{{lastVisitorInvoiceId}}"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Get Invoice By Id (Admin) - Not found",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{adminToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/admin/9999",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "admin",
+        "9999"
+       ]
+      }
+     },
+     "response": []
+    },
+    {
+     "name": "Admin endpoint with Visitor token - should be 403",
+     "request": {
+      "method": "GET",
+      "header": [
+       {
+        "key": "Authorization",
+        "value": "Bearer {{visitorToken}}",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/invoices/admin?PageNumber=1&PageSize=5",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "invoices",
+        "admin"
+       ],
+       "query": [
+        {
+         "key": "PageNumber",
+         "value": "1"
+        },
+        {
+         "key": "PageSize",
+         "value": "5"
+        }
+       ]
+      }
+     },
+     "response": [],
+     "event": [
+      {
+       "listen": "test",
+       "script": {
+        "exec": [
+         "pm.test('Visitor cannot access admin invoices', function () {",
+         "  pm.expect(pm.response.code).to.be.oneOf([403, 401]);",
+         "});"
+        ],
+        "type": "text/javascript"
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "variable": [
+  {
+   "key": "baseUrl",
+   "value": "https://localhost:5001"
+  },
+  {
+   "key": "adminToken",
+   "value": ""
+  },
+  {
+   "key": "visitorToken",
+   "value": ""
+  },
+  {
+   "key": "productId1",
+   "value": "1"
+  },
+  {
+   "key": "productId2",
+   "value": "2"
+  },
+  {
+   "key": "productId3",
+   "value": "3"
+  },
+  {
+   "key": "lastVisitorInvoiceId",
+   "value": ""
+  }
+ ]
+}

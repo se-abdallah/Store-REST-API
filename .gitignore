@@ -1,0 +1,46 @@
+# Build
+bin/
+obj/
+
+# User specific
+*.user
+*.suo
+*.userprefs
+
+# Visual Studio
+.vs/
+.vscode/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Logs
+*.log
+
+# SQLite
+*.db
+*.db-journal
+
+# OS
+.DS_Store
+Thumbs.db
+
+# EF
+migrations/obj/
+project.assets.json
+project.lock.json
+
+# Publish
+publish/
+dist/
+
+# Rider
+.idea/
+
+# Test coverage
+coverage*
+TestResults/
+*.coverage
+*.coveragexml
